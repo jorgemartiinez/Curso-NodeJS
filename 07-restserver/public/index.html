@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <meta name="google-signin-client_id"
+          content="1007934075719-j8jva8r7invmqj8pouf7a7ckqb41p66i.apps.googleusercontent.com">
+    <title>Index server</title>
+</head>
+
+<body>
+
+    <img src="http://localhost:3000/imagen/usuarios/5e73b9d65372984554d66cec-676.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvIjp7InJvbGUiOiJBRE1JTl9ST0xFIiwiZXN0YWRvIjp0cnVlLCJnb29nbGUiOmZhbHNlLCJfaWQiOiI1ZTczYjlkNjUzNzI5ODQ1NTRkNjZjZWMiLCJub21icmUiOiJUZXN0IDEiLCJlbWFpbCI6InRlc3QxQGdtYWlsLmNvbSIsIl9fdiI6MCwiaW1nIjoiNWU3M2I5ZDY1MzcyOTg0NTU0ZDY2Y2VjLTY3Ni5wbmcifSwiaWF0IjoxNTg1NjgyMTU5LCJleHAiOjE1ODgyNzQxNTl9.z4KBa4Fp0sevcLCkK3j8Gy84pqG_xjG6H00kyuIEDnU" alt="" width="200">
+
+    <div class="g-signin2"
+         data-onsuccess="onSignIn"></div>
+    <a href="#"
+       onclick="signOut();">Sign out</a>
+
+    <script src="https://apis.google.com/js/platform.js"
+            async
+            defer></script>
+    <script>
+        function onSignIn(googleUser) {
+            var profile = googleUser.getBasicProfile();
+            console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+            console.log('Name: ' + profile.getName());
+            console.log('Image URL: ' + profile.getImageUrl());
+            console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+
+            var id_token = googleUser.getAuthResponse().id_token;
+
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/google');
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.onload = function () {
+                console.log('Signed in as: ' + xhr.responseText);
+            };
+            xhr.send('idtoken=' + id_token);
+
+        }
+        function signOut() {
+            var auth2 = gapi.auth2.getAuthInstance();
+            auth2.signOut().then(function () {
+                console.log('User signed out.');
+            });
+        }
+    </script>
+
+</body>
+
+</html>
