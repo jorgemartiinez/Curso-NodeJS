@@ -1,4 +1,4 @@
 *.css linguist-detectable=false
 *.js linguist-detectable=true
 *.html linguist-detectable=false
-./10-socket-chat/*.css linguist-detectable=false
+./10-socket-chat/public/css/* linguist-vendored
