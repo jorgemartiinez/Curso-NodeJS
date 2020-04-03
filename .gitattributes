@@ -1,4 +1,3 @@
 *.css linguist-language=Javascript
 *.js linguist-detectable=true
 *.html linguist-detectable=false
-10-socket-chat/public/css/* linguist-vendored=false
