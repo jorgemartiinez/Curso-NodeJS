@@ -27,6 +27,8 @@ router.get('/heroes/:id', (req: Request, res: Response) => {
 
     const id = req.params.id;
 
+    const escapedId = MySQL.instance.connection.escape(id);
+
     const query = `SELECT * FROM heroes WHERE id=${id}`;
 
     MySQL.ejecutarQuery(query, (err: any, heroe: Object) => {
